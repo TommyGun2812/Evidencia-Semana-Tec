@@ -2,8 +2,11 @@
 
 ## Gonzalo Morán Sánchez 
 Archivo modificado: tictactoe.py 
+
 Alumno: Gonzalo Morán Sánchez 
+
 Matrícula: A01710494  
+
 Cambios realizados:     
 1. Modificar el tamaño y el color de los símbolos "X" y "O" y centrarlos.
 2. Verificar si la casilla correspondiente en el tablero está vacía antes de permitir que un jugador coloque su símbolo, si la casilla ya está ocupada, el jugador no puede colocar su símbolo en ella.
