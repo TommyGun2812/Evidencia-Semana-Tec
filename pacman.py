@@ -1,22 +1,20 @@
-"""Pacman, classic arcade game.
+"""Pacman, juego clásico de arcade.
 
-Exercises
-
-1. Change the board.
-2. Change the number of ghosts.
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
+Este es un códgo modificado para emular
+el videojuego Pacman. Las modificaciones
+con respecto al código base fueron en torno
+al cambio del mapa del juego, y acelerar la
+velovidad con las que se mueven los fantasmas.
 """
 
 from random import choice
-from turtle import *
+import turtle as tutl
 
 from freegames import floor, vector
 
 state = {'score': 0}
-path = Turtle(visible=False)
-writer = Turtle(visible=False)
+path = tutl.Turtle(visible=False)
+writer = tutl.Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
 ghosts = [
@@ -51,7 +49,7 @@ tiles = [
 
 
 def square(x, y):
-    """Draw square using path at (x, y)."""
+    """Dibuja un cuadrado utilizando el camino en la posición (x, y)."""
     path.up()
     path.goto(x, y)
     path.down()
@@ -65,7 +63,7 @@ def square(x, y):
 
 
 def offset(point):
-    """Return offset of point in tiles."""
+    """Devuelve el desplazamiento del punto en las casillas."""
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
@@ -73,7 +71,7 @@ def offset(point):
 
 
 def valid(point):
-    """Return True if point is valid in tiles."""
+    """Devuelve Verdadero si el punto es válido en las casillas."""
     index = offset(point)
 
     if tiles[index] == 0:
@@ -88,8 +86,8 @@ def valid(point):
 
 
 def world():
-    """Draw world using path."""
-    bgcolor('black')
+    """Dibuja el mundo utilizando el camino."""
+    tutl.bgcolor('black')
     path.color('blue')
 
     for index in range(len(tiles)):
@@ -107,11 +105,11 @@ def world():
 
 
 def move():
-    """Move pacman and all ghosts."""
+    """Mueve a Pacman y a todos los fantasmas."""
     writer.undo()
     writer.write(state['score'])
 
-    clear()
+    tutl.clear()
 
     if valid(pacman + aim):
         pacman.move(aim)
@@ -125,9 +123,9 @@ def move():
         y = 180 - (index // 20) * 20
         square(x, y)
 
-    up()
-    goto(pacman.x + 10, pacman.y + 10)
-    dot(20, 'yellow')
+    tutl.up()
+    tutl.goto(pacman.x + 10, pacman.y + 10)
+    tutl.dot(20, 'yellow')
 
     for point, course in ghosts:
         if valid(point + course):
@@ -143,37 +141,37 @@ def move():
             course.x = plan.x
             course.y = plan.y
 
-        up()
-        goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+        tutl.up()
+        tutl.goto(point.x + 10, point.y + 10)
+        tutl.dot(20, 'red')
 
-    update()
+    tutl.update()
 
     for point, course in ghosts:
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 50)
+    tutl.ontimer(move, 75)
 
 
 def change(x, y):
-    """Change pacman aim if valid."""
+    """Cambiar la dirección de Pacman si es válida"""
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
 
 
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
+tutl.setup(420, 420, 370, 0)
+tutl.hideturtle()
+tutl.tracer(False)
 writer.goto(160, 160)
 writer.color('white')
 writer.write(state['score'])
-listen()
-onkey(lambda: change(5, 0), 'Right')
-onkey(lambda: change(-5, 0), 'Left')
-onkey(lambda: change(0, 5), 'Up')
-onkey(lambda: change(0, -5), 'Down')
+tutl.listen()
+tutl.onkey(lambda: change(5, 0), 'Right')
+tutl.onkey(lambda: change(-5, 0), 'Left')
+tutl.onkey(lambda: change(0, 5), 'Up')
+tutl.onkey(lambda: change(0, -5), 'Down')
 world()
 move()
-done()
+tutl.done()
