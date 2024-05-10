@@ -8,7 +8,7 @@ Exercises
 4. How could you create a computer player?
 """
 
-from turtle import *
+import turtle as t
 
 from freegames import line
 
@@ -23,20 +23,20 @@ def grid():
 
 def drawx(x, y):
     """Draw X player."""
-    color("blue")
-    width(5)
+    t.color("blue")
+    t.width(5)
     line(x + 20, y + 20, x + 113, y + 113)
     line(x + 20, y + 113, x + 113, y + 20)
 
 
 def drawo(x, y):
     """Draw O player."""
-    color("red")
-    width(5)
-    up()
-    goto(x + 67, y + 15)
-    down()
-    circle(52)
+    t.color("red")
+    t.width(5)
+    t.up()
+    t.goto(x + 67, y + 15)
+    t.down()
+    t.circle(52)
 
 
 def floor(value):
@@ -48,6 +48,7 @@ state = {'player': 0}
 players = [drawx, drawo]
 board = [[None, None, None], [None, None, None], [None, None, None]]
 
+
 def tap(x, y):
     """Draw X or O in tapped square."""
     x = floor(x)
@@ -56,15 +57,15 @@ def tap(x, y):
     if board[int((y + 200) // 133)][int((x + 200) // 133)] is None:
         draw = players[player]
         draw(x, y)
-        update()
+        t.update()
         board[int((y + 200) // 133)][int((x + 200) // 133)] = player
         state['player'] = not player
 
 
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
+t.setup(420, 420, 370, 0)
+t.hideturtle()
+t.tracer(False)
 grid()
-update()
-onscreenclick(tap)
-done()
+t.update()
+t.onscreenclick(tap)
+t.done()
