@@ -46,17 +46,19 @@ def floor(value):
 
 state = {'player': 0}
 players = [drawx, drawo]
-
+board = [[None, None, None], [None, None, None], [None, None, None]]
 
 def tap(x, y):
     """Draw X or O in tapped square."""
     x = floor(x)
     y = floor(y)
     player = state['player']
-    draw = players[player]
-    draw(x, y)
-    update()
-    state['player'] = not player
+    if board[int((y + 200) // 133)][int((x + 200) // 133)] is None:
+        draw = players[player]
+        draw(x, y)
+        update()
+        board[int((y + 200) // 133)][int((x + 200) // 133)] = player
+        state['player'] = not player
 
 
 setup(420, 420, 370, 0)
