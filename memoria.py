@@ -1,3 +1,12 @@
+"""
+Este es un códgo modificado para emular
+el videojuego memoria. Las modificaciones
+con respecto al código fueron dos:
+1. Contar las veces de taps durante el juago.
+2. Identificar cuando se han volteado todos los
+   cuadrados.
+"""
+
 from random import shuffle
 import turtle
 from freegames import path
