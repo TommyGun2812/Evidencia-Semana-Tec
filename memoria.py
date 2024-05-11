@@ -6,6 +6,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+tap_count = 0  # Variable para contar los taps
 
 
 def square(x, y):
@@ -33,6 +34,8 @@ def xy(count):
 
 def tap(x, y):
     """Actualizar marca y ocultar según lo escogido."""
+    global tap_count
+    tap_count += 1  # Incrementar el contador de taps
     spot = index(x, y)
     mark = state['mark']
 
@@ -45,7 +48,7 @@ def tap(x, y):
 
 
 def draw():
-    """Dibujar imagen e índice."""
+    """Dibujar imagen, índice y número de taps."""
     turtle.clear()
     turtle.goto(0, 0)
     turtle.shape(car)
@@ -64,6 +67,11 @@ def draw():
         turtle.goto(x + 2, y)
         turtle.color('black')
         turtle.write(tiles[mark], font=('Arial', 30, 'normal'))
+
+    # Mostrar el número de taps
+    turtle.goto(-180, 180)
+    turtle.color('black')
+    turtle.write(f'Taps: {tap_count}', font=('Arial', 16, 'normal'))
 
     turtle.update()
     turtle.ontimer(draw, 100)
