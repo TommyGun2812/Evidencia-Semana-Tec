@@ -10,7 +10,7 @@ tap_count = 0  # Variable para contar los taps
 
 
 def square(x, y):
-    """Dibujar un rectangulo gris con borde negro en (x, y)."""
+    """Dibujar un rectángulo gris con borde negro en (x, y)."""
     turtle.up()
     turtle.goto(x, y)
     turtle.down()
@@ -28,7 +28,7 @@ def index(x, y):
 
 
 def xy(count):
-    """Convertir  índica a coordenadas (x, y)."""
+    """Convertir índice a coordenadas (x, y)."""
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
 
@@ -47,8 +47,16 @@ def tap(x, y):
         state['mark'] = None
 
 
+def all_uncovered():
+    """Verificar si todos los cuadros están destapados."""
+    for count in range(64):
+        if hide[count]:
+            return False
+    return True
+
+
 def draw():
-    """Dibujar imagen, índice y número de taps."""
+    """Dibujar imagen, cuadros y número de taps."""
     turtle.clear()
     turtle.goto(0, 0)
     turtle.shape(car)
@@ -69,9 +77,13 @@ def draw():
         turtle.write(tiles[mark], font=('Arial', 30, 'normal'))
 
     # Mostrar el número de taps
-    turtle.goto(-180, 180)
+    turtle.goto(-180, 180)  # Posición para mostrar el número de taps
     turtle.color('black')
     turtle.write(f'Taps: {tap_count}', font=('Arial', 16, 'normal'))
+
+    if all_uncovered():
+        turtle.goto(-120, -200)
+        turtle.write("¡Felicidades, terminaste!", font=('Arial', 16, 'normal'))
 
     turtle.update()
     turtle.ontimer(draw, 100)
